@@ -1,8 +1,11 @@
 import { PubSub } from 'graphql-subscriptions';
-import {ConsoleLogger,IConsoleLoggerSettings} from "@cdm-logger/server";
+import { ConsoleLogger } from "@cdm-logger/server";
 import { AmqpPubSub } from 'graphql-rabbitmq-subscriptions';
 
 // const pubsub = new PubSub();
+
+const RABBITMQ_HOST = process.env.RADAR_RABBITMQ_HOST;
+const RABBITMQ_PORT = process.env.RADAR_RABBITMQ_PORT;
 
 const settings = {
     level: "info", // Optional: default 'info' ('trace'|'info'|'debug'|'warn'|'error'|'fatal')
@@ -11,7 +14,10 @@ const settings = {
 
 const logger = ConsoleLogger.create("radar", settings);
 
-const pubsub = new AmqpPubSub({logger});
+const pubsub = new AmqpPubSub({
+    logger: logger,
+    config: {host: RABBITMQ_HOST, port: RABBITMQ_PORT}
+});
 
 const data = [
     {key: "me1", position: [52.500419, 13.3822353], content: "Me 1"},
