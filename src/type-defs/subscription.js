@@ -2,7 +2,8 @@ import { gql } from 'apollo-server';
 
 const subscription = gql`
   type Subscription {
-    updated: Marker
+    updated: Marker!
+    removed: Marker!
   }
 `;
 
