@@ -1,10 +1,10 @@
 import { gql } from 'apollo-server';
 
-const subscription = gql`
+const mutation = gql`
   type Mutation {
     update(key: String!, position: [Float!]!, content: String!): Marker!
     remove(key: String!): Marker
   }
 `;
 
-export default subscription;
+export default mutation;
